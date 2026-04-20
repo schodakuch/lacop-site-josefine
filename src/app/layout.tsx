@@ -20,7 +20,7 @@ const mono = JetBrains_Mono({
   display: "swap",
 });
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://template.lacop.site";
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://josefine-gulden.lacop.site";
 
 export async function generateMetadata(): Promise<Metadata> {
   const profile = await getProfile();

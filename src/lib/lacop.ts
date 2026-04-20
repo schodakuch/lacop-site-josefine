@@ -6,7 +6,7 @@
 import type { Category, Media, Profile } from "./types";
 import { mockProfiles, mockCategories, mockMedia } from "@/data/mock";
 
-const DEFAULT_SLUG = "template";
+const DEFAULT_SLUG = "josefine-gulden";
 
 function activeSlug(): string {
   return process.env.LACOP_USER_SLUG?.trim() || DEFAULT_SLUG;
