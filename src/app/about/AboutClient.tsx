@@ -27,10 +27,10 @@ export default function AboutClient({ profile }: Props) {
         </h1>
       </section>
 
-      <section className="px-5 md:px-10 lg:px-16 py-10 md:py-16 border-t border-rule">
+      <section className="px-5 md:px-10 lg:px-16 py-10 md:py-14 lg:py-16 border-t border-rule">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12">
           <ScrollReveal className="md:col-span-5">
-            <div className="relative aspect-[3/4] overflow-hidden bg-mist-strong rounded-sm border border-rule max-w-md mx-auto md:mx-0">
+            <div className="relative aspect-[3/4] overflow-hidden bg-mist-strong rounded-lg border border-rule max-w-md mx-auto md:mx-0">
               {portraitSrc ? (
                 <Image
                   src={portraitSrc}
@@ -68,12 +68,12 @@ export default function AboutClient({ profile }: Props) {
         </div>
       </section>
 
-      <section className="px-5 md:px-10 lg:px-16 py-12 md:py-16 border-t border-rule bg-mist/40">
+      <section className="px-5 md:px-10 lg:px-16 py-12 md:py-14 lg:py-16 border-t border-rule bg-mist/40">
         <p className="mono text-[0.72rem] uppercase tracking-[0.22em] text-accent mb-6 md:mb-8">
           {copy.about.stats_heading}
         </p>
         {hasStats ? (
-          <dl className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-x-6 gap-y-8">
+          <dl className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-x-6 md:gap-x-8 gap-y-8">
             {Object.entries(stats).map(([key, value]) => (
               <div key={key} className="border-t border-rule pt-3">
                 <dt className="mono text-[0.66rem] uppercase tracking-[0.2em] text-muted mb-2">

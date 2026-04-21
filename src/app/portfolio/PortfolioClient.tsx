@@ -66,7 +66,7 @@ export default function PortfolioClient({ categories, media }: Props) {
         </div>
       </section>
 
-      <section className="px-5 md:px-10 lg:px-16 pb-20 md:pb-28">
+      <section className="px-5 md:px-10 lg:px-16 pb-16 md:pb-24 lg:pb-28">
         {visible.length === 0 ? (
           <p className="mono text-[0.78rem] uppercase tracking-[0.22em] text-muted py-20 text-center">
             {copy.portfolio.empty}
@@ -84,7 +84,7 @@ export default function PortfolioClient({ categories, media }: Props) {
               >
                 <figure>
                   <div
-                    className="relative overflow-hidden bg-mist-strong rounded-sm border border-rule"
+                    className="relative overflow-hidden bg-mist-strong rounded-lg border border-rule"
                     style={{ aspectRatio: `${item.width ?? 4} / ${item.height ?? 5}` }}
                   >
                     <Image
