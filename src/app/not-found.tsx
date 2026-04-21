@@ -10,7 +10,7 @@ export default function NotFound() {
       </h1>
       <p className="mt-5 text-[1rem] leading-relaxed text-ink-soft">{copy.notfound.body}</p>
       <div className="mt-8">
-        <Link href="/" className="mono text-[0.68rem] uppercase tracking-[0.22em] text-ink hover-line">
+        <Link href="/" className="text-[0.95rem] font-medium text-ink hover-line hover:text-accent transition-colors">
           ← {copy.notfound.home}
         </Link>
       </div>

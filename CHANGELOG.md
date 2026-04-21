@@ -1,5 +1,50 @@
 # Changelog
 
+## 2026-04-21 — Josi's real content pass + responsive/typography fixes
+
+Update pass before handing a preview back to Josi.
+
+**Content (data-driven; mock already had real measurements/social — the
+changes are in the copy table and the contact email override):**
+- `copy.about.bio_heading`: "Kurzbio" → "Meine Geschichte" (Josi's
+  preferred wording).
+- `copy.about.bio_empty`: "Kurzbio folgt." → "Text folgt." — the
+  placeholder shown until Josi delivers her story.
+- Added `copy.about.location = "Stuttgart, Deutschland"` and rendered
+  it as a small caption under the bio paragraph.
+- `ContactClient` now uses a hardcoded `BOOKING_EMAIL =
+  "Cooperation-Josi.Gulden@outlook.com"` override — the default
+  `hello@<domain>` derivation in `bookingEmailFor` is wrong for Josi,
+  who prefers her outlook address. Comment in the file flags this as a
+  temporary override until LACOP `public_profiles` adds
+  `contact_email`.
+
+**Stats, socials, agencies, client list:** nothing to do —
+`src/data/mock.ts` already had the correct real values
+(173/88/64/91/75B/38/34–36, no Augen/Haare, only Instagram
+`josi.gulden`, empty `agencies`/`custom_links` so the "Karriere-
+Highlights" and "Ausgewählte Kunden" sections never render). Any fake
+content seen on the live site (Vogue/Mailand/IMG/Elle, Mercedes-
+Benz/Samsung/Chopard/…, `booking@josefinegulden.com`, TikTok /
+Pinterest links) is stale — this deploy confirms the correct state.
+
+**Responsive / typography (catching up to the template 2026-04-21
+rules after the repo was split on 2026-04-20):**
+- Page-title H1s (about/contact/portfolio): `clamp(2.8rem,10vw,6.4rem)`
+  → `clamp(2.2rem,7.5vw,5rem)` with `leading-[1]` so descenders
+  don't clip.
+- Nav drawer max-h switched from `100vh` → `100svh` so mobile chrome
+  doesn't overlap the bottom of the drawer.
+- Mono+uppercase removed from: nav mobile toggle, footer back-to-top,
+  404 home link. Body font + mixed case now (eyebrows/stat labels
+  keep mono — that's still correct for captions).
+- Contact: section padding `py-12 md:py-20` → `py-12 md:py-16
+  lg:py-20` (adds tablet step); success mark `text-6xl` →
+  `text-5xl sm:text-6xl`.
+
+Home page (`HomeClient.tsx`) deliberately untouched per Josi's ask
+("Startseite ist ok wie sie ist").
+
 ## 2026-04-20 — Split from lacop-site-demos monorepo
 
 Josefine Gulden portfolio moved into its own repo (matching
