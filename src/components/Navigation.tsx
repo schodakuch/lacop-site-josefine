@@ -73,7 +73,7 @@ export default function Navigation() {
           onClick={() => setDrawer((v) => !v)}
           aria-expanded={drawer}
           aria-controls="nav-drawer"
-          className="md:hidden text-[0.95rem] font-medium tracking-[-0.01em] text-ink min-h-11 min-w-11 px-2 flex items-center justify-center -mr-2"
+          className="md:hidden mono text-[0.7rem] uppercase tracking-[0.18em] text-ink min-h-11 min-w-11 px-2 flex items-center justify-center -mr-2"
         >
           {drawer ? copy.nav.close : copy.nav.menu}
         </button>
@@ -83,7 +83,7 @@ export default function Navigation() {
         id="nav-drawer"
         className={`md:hidden transition-[max-height,opacity] duration-300 ${
           drawer
-            ? "max-h-[calc(100svh-3.5rem)] opacity-100 border-t border-rule overflow-y-auto bg-mist/50"
+            ? "max-h-[calc(100vh-3.5rem)] opacity-100 border-t border-rule overflow-y-auto bg-mist/50"
             : "max-h-0 opacity-0 overflow-hidden"
         }`}
       >

@@ -42,7 +42,7 @@ export default function Footer() {
           })}
           <a
             href="#top"
-            className="hover-line text-[0.88rem] font-medium text-ink-soft"
+            className="hover-line mono text-[0.72rem] uppercase tracking-[0.18em] text-ink-soft"
           >
             {copy.footer.top} ↑
           </a>

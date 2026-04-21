@@ -22,7 +22,7 @@ export default function AboutClient({ profile }: Props) {
         <p className="mono text-[0.72rem] uppercase tracking-[0.22em] text-accent mb-3">
           {copy.about.eyebrow}
         </p>
-        <h1 className="font-medium tracking-[-0.02em] text-[clamp(2.2rem,7.5vw,5rem)] leading-[1] text-ink">
+        <h1 className="font-medium tracking-[-0.02em] text-[clamp(2.8rem,10vw,6.4rem)] leading-[0.95] text-ink">
           {copy.about.title}
         </h1>
       </section>
@@ -61,9 +61,6 @@ export default function AboutClient({ profile }: Props) {
                 {profile.about}
               </p>
             )}
-            <p className="mt-6 mono text-[0.7rem] uppercase tracking-[0.22em] text-muted">
-              — {copy.about.location}
-            </p>
           </ScrollReveal>
         </div>
       </section>

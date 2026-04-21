@@ -8,17 +8,18 @@ import ScrollReveal from "@/components/ScrollReveal";
 
 type Props = { profile: Profile };
 
-// Josi-supplied booking email (2026-04-21). Overrides the default
-// `hello@<domain>` derivation until the LACOP `public_profiles` shape
-// adds a `contact_email` column; at that point this override goes away
-// and the email flows from the profile row like every other field.
-const BOOKING_EMAIL = "Cooperation-Josi.Gulden@outlook.com";
+function bookingEmailFor(profile: Profile): string {
+  if (profile.website_domain) {
+    return `hello@${profile.website_domain.replace(/^https?:\/\//, "")}`;
+  }
+  return `hello@${profile.slug}.lacop.site`;
+}
 
 export default function ContactClient({ profile }: Props) {
   const [sent, setSent] = useState(false);
   const [submitting, setSubmitting] = useState(false);
 
-  const email = BOOKING_EMAIL;
+  const email = bookingEmailFor(profile);
   const socials = Object.entries(profile.social_links ?? {}).filter(([, v]) => Boolean(v));
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -44,7 +45,7 @@ export default function ContactClient({ profile }: Props) {
         <p className="mono text-[0.72rem] uppercase tracking-[0.22em] text-accent mb-3">
           {copy.contact.eyebrow}
         </p>
-        <h1 className="font-medium tracking-[-0.02em] text-[clamp(2.2rem,7.5vw,5rem)] leading-[1] text-ink">
+        <h1 className="font-medium tracking-[-0.02em] text-[clamp(2.8rem,10vw,6.4rem)] leading-[0.95] text-ink">
           {copy.contact.title}
         </h1>
         <p className="text-lg md:text-xl text-ink-soft mt-6 max-w-xl">
@@ -52,7 +53,7 @@ export default function ContactClient({ profile }: Props) {
         </p>
       </section>
 
-      <section className="px-5 md:px-10 lg:px-16 py-12 md:py-16 lg:py-20 border-t border-rule">
+      <section className="px-5 md:px-10 lg:px-16 py-12 md:py-20 border-t border-rule">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-16">
           <ScrollReveal className="md:col-span-5 space-y-10">
             <div>
@@ -97,7 +98,7 @@ export default function ContactClient({ profile }: Props) {
           <ScrollReveal className="md:col-span-7" delay={0.15}>
             {sent ? (
               <div className="py-12 text-center">
-                <p className="text-5xl sm:text-6xl text-accent mb-6">✓</p>
+                <p className="text-6xl text-accent mb-6">✓</p>
                 <p className="text-xl md:text-2xl text-ink">{copy.contact.form.sent}</p>
               </div>
             ) : (

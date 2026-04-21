@@ -28,9 +28,8 @@ export const copy = {
   about: {
     title: "Über mich",
     eyebrow: "Profil",
-    bio_heading: "Meine Geschichte",
-    bio_empty: "Text folgt.",
-    location: "Stuttgart, Deutschland",
+    bio_heading: "Kurzbio",
+    bio_empty: "Kurzbio folgt.",
     stats_heading: "MAẞE",
     stats_empty: "Maße folgen.",
     agencies_heading: "Agenturen",
