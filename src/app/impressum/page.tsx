@@ -9,14 +9,16 @@ export const metadata: Metadata = {
 
 export default function ImpressumPage() {
   return (
-    <section className="px-5 md:px-10 lg:px-16 pt-10 md:pt-16 pb-24 max-w-3xl">
-      <p className="mono text-[0.72rem] uppercase tracking-[0.22em] text-accent mb-3">
+    <section className="px-6 lg:px-16 pt-10 lg:pt-24 pb-24 max-w-3xl">
+      <p className="font-mono text-[10px] uppercase tracking-[0.3em] text-gold mb-4">
         {copy.footer.impressum}
       </p>
-      <h1 className="font-medium tracking-[-0.02em] text-[clamp(2.4rem,8vw,5rem)] leading-[0.95] text-ink">
-        {copy.impressum.title}
+      <h1 className="font-serif text-[clamp(3rem,14vw,9rem)] leading-[0.95] tracking-tight">
+        <span className="serif-italic text-gold-dark">{copy.impressum.title.toLowerCase()}</span>
       </h1>
-      <p className="italic text-xl md:text-2xl text-muted mt-10">{copy.impressum.placeholder}</p>
+      <p className="font-serif italic text-xl sm:text-2xl text-foreground/60 mt-10">
+        {copy.impressum.placeholder}
+      </p>
     </section>
   );
 }

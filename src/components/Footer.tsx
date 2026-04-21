@@ -12,19 +12,21 @@ export default function Footer() {
   const socials = Object.entries(profile.social_links ?? {}).filter(([, v]) => Boolean(v));
 
   return (
-    <footer className="border-t border-rule px-5 md:px-10 lg:px-16 mt-auto">
-      <div className="py-8 md:py-10 flex flex-col md:flex-row md:items-center md:justify-between gap-6 text-[0.88rem] text-muted">
-        <div className="flex flex-wrap items-baseline gap-x-4 gap-y-2">
-          <span>© {year} {displayName}</span>
-          <span className="hidden md:inline text-rule">·</span>
-          <span>{copy.footer.rights}</span>
-          <span className="hidden md:inline text-rule">·</span>
-          <Link href="/impressum" className="hover-line text-ink-soft">
+    <footer className="border-t border-gold-light/40 bg-cream/30 lg:pl-[88px] relative z-10">
+      <div className="px-6 lg:px-16 py-10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+        <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
+          <p className="font-mono text-[10px] uppercase tracking-[0.25em] text-foreground/50">
+            © {year} · {displayName} · {copy.footer.rights}
+          </p>
+          <span className="text-foreground/20">|</span>
+          <Link
+            href="/impressum"
+            className="font-mono text-[10px] uppercase tracking-[0.25em] text-foreground/50 hover:text-gold-dark transition-colors"
+          >
             {copy.footer.impressum}
           </Link>
         </div>
-
-        <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
+        <div className="flex flex-wrap gap-x-5 gap-y-1">
           {socials.map(([platform, url]) => {
             const safe = safeUrl(url);
             if (!safe) return null;
@@ -34,26 +36,12 @@ export default function Footer() {
                 href={safe}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="hover-line text-ink-soft"
+                className="font-serif italic text-base text-gold-dark hover:text-gold transition-colors"
               >
                 {getSocialLabel(platform)}
               </a>
             );
           })}
-          <a
-            href="#top"
-            className="hover-line mono text-[0.72rem] uppercase tracking-[0.18em] text-ink-soft"
-          >
-            {copy.footer.top} ↑
-          </a>
-          <a
-            href="https://lacop.app"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="mono text-[0.68rem] uppercase tracking-[0.16em] text-muted hover:text-ink-soft"
-          >
-            {copy.footer.made_with} <span className="text-ink-soft">LACOP</span>
-          </a>
         </div>
       </div>
     </footer>

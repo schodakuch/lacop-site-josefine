@@ -1,137 +1,71 @@
 "use client";
 
 import Image from "next/image";
-import { useSearchParams, useRouter, usePathname } from "next/navigation";
 import { motion, useReducedMotion } from "framer-motion";
-import { useCallback, useMemo } from "react";
-import { copy } from "@/data/copy";
 import type { Category, Media } from "@/lib/types";
+import { copy } from "@/data/copy";
 
 type Props = {
   categories: Category[];
   media: Media[];
 };
 
-export default function PortfolioClient({ categories, media }: Props) {
+export default function PortfolioClient({ media }: Props) {
   const reduced = useReducedMotion();
-  const params = useSearchParams();
-  const router = useRouter();
-  const pathname = usePathname();
-
-  const active = params.get("category") ?? "";
-
-  const setActive = useCallback(
-    (slug: string) => {
-      const url = slug ? `${pathname}?category=${slug}` : pathname;
-      router.replace(url, { scroll: false });
-    },
-    [pathname, router],
-  );
-
-  const visible = useMemo(() => {
-    if (!active) return media;
-    const cat = categories.find((c) => c.slug === active);
-    if (!cat) return media;
-    return media.filter((m) => m.category_id === cat.id);
-  }, [active, categories, media]);
 
   return (
     <>
-      <section className="px-5 md:px-10 lg:px-16 pt-10 md:pt-16 pb-6 md:pb-10">
-        <p className="mono text-[0.72rem] uppercase tracking-[0.22em] text-accent mb-3">
-          {copy.portfolio.eyebrow}
-        </p>
-        <h1 className="font-medium tracking-[-0.02em] text-[clamp(2.8rem,10vw,6.4rem)] leading-[0.95] text-ink">
+      {/* Header */}
+      <section className="px-6 lg:px-16 pt-10 lg:pt-24 pb-10 lg:pb-12">
+        <p className="font-mono text-[10px] uppercase tracking-[0.3em] text-gold mb-4">
           {copy.portfolio.title}
+        </p>
+        <h1 className="font-serif text-[clamp(3rem,14vw,9rem)] leading-[0.95] tracking-tight">
+          {copy.portfolio.the}
+          <span className="serif-italic text-gold-dark">{copy.portfolio.title.toLowerCase()}</span>
         </h1>
-
-        <div
-          role="tablist"
-          aria-label={copy.portfolio.title}
-          className="mt-10 flex flex-wrap gap-2 sm:gap-3 border-t border-rule pt-5"
-        >
-          <FilterPill
-            active={!active}
-            onClick={() => setActive("")}
-            label={copy.portfolio.filter_all}
-          />
-          {categories.map((cat) => (
-            <FilterPill
-              key={cat.slug}
-              active={active === cat.slug}
-              onClick={() => setActive(cat.slug)}
-              label={cat.name}
-            />
-          ))}
-        </div>
+        <div className="mt-10 border-t border-gold-light/40" />
       </section>
 
-      <section className="px-5 md:px-10 lg:px-16 pb-20 md:pb-28">
-        {visible.length === 0 ? (
-          <p className="mono text-[0.78rem] uppercase tracking-[0.22em] text-muted py-20 text-center">
+      {/* Gallery */}
+      <section className="px-6 lg:px-16 pb-24">
+        {media.length === 0 ? (
+          <p className="font-mono text-[10px] uppercase tracking-[0.3em] text-foreground/40 py-20 text-center">
             {copy.portfolio.empty}
           </p>
         ) : (
-          <motion.ul layout className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-5">
-            {visible.map((item, i) => (
-              <motion.li
+          <motion.div layout className="grid grid-cols-2 lg:grid-cols-3 gap-3 lg:gap-5">
+            {media.map((item, i) => (
+              <motion.figure
                 key={item.id}
                 layout
-                initial={reduced ? false : { opacity: 0, y: 18 }}
+                initial={reduced ? false : { opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: (i % 6) * 0.05, ease: [0.16, 1, 0.3, 1] }}
+                transition={{ duration: 0.5, delay: (i % 6) * 0.05 }}
                 className="group"
               >
-                <figure>
-                  <div
-                    className="relative overflow-hidden bg-mist-strong rounded-sm border border-rule"
-                    style={{ aspectRatio: `${item.width ?? 4} / ${item.height ?? 5}` }}
-                  >
-                    <Image
-                      src={item.url}
-                      alt={item.title ?? ""}
-                      fill
-                      sizes="(min-width: 768px) 33vw, 50vw"
-                      className="object-cover transition-transform duration-700 group-hover:scale-[1.04]"
-                    />
-                  </div>
-                  {item.photographer_credit && (
-                    <figcaption className="mt-2 mono text-[0.62rem] uppercase tracking-[0.2em] text-muted">
-                      © {item.photographer_credit}
-                    </figcaption>
-                  )}
-                </figure>
-              </motion.li>
+                <div
+                  className="relative overflow-hidden bg-cream"
+                  style={{ aspectRatio: `${item.width ?? 3} / ${item.height ?? 4}` }}
+                >
+                  <Image
+                    src={item.url}
+                    alt={item.title ?? `Josefine Gulden — ${String(i + 1).padStart(2, "0")}`}
+                    fill
+                    sizes="(max-width: 1024px) 50vw, 33vw"
+                    className="object-cover transition-transform duration-700 group-hover:scale-[1.04]"
+                  />
+                </div>
+                <figcaption className="mt-3">
+                  <p className="font-mono text-[10px] uppercase tracking-[0.25em] text-foreground/40">
+                    {item.title ?? String(i + 1).padStart(2, "0")}
+                  </p>
+                </figcaption>
+              </motion.figure>
             ))}
-          </motion.ul>
+          </motion.div>
         )}
       </section>
     </>
-  );
-}
-
-function FilterPill({
-  active,
-  onClick,
-  label,
-}: {
-  active: boolean;
-  onClick: () => void;
-  label: string;
-}) {
-  return (
-    <button
-      type="button"
-      role="tab"
-      aria-selected={active}
-      onClick={onClick}
-      className={`px-4 py-2 rounded-full text-[0.88rem] font-medium border transition-colors ${
-        active
-          ? "bg-ink text-background border-ink"
-          : "border-rule text-ink-soft hover:border-accent hover:text-accent"
-      }`}
-    >
-      {label}
-    </button>
   );
 }

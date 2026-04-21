@@ -3,14 +3,19 @@ import { copy } from "@/data/copy";
 
 export default function NotFound() {
   return (
-    <section className="px-5 md:px-8 max-w-[1280px] mx-auto pt-32 md:pt-40 pb-24 md:pb-32">
-      <p className="mono text-[0.64rem] uppercase tracking-[0.22em] text-muted">404</p>
-      <h1 className="mt-3 text-[clamp(2.2rem,6vw,3.8rem)] tracking-[-0.02em] font-light">
-        {copy.notfound.heading}
+    <section className="px-6 lg:px-16 pt-20 lg:pt-32 pb-24 max-w-3xl">
+      <p className="font-mono text-[10px] uppercase tracking-[0.3em] text-gold mb-4">404</p>
+      <h1 className="font-serif text-[clamp(3rem,14vw,9rem)] leading-[0.95] tracking-tight">
+        <span className="serif-italic text-gold-dark">{copy.notfound.heading.toLowerCase()}</span>
       </h1>
-      <p className="mt-5 text-[1rem] leading-relaxed text-ink-soft">{copy.notfound.body}</p>
-      <div className="mt-8">
-        <Link href="/" className="mono text-[0.68rem] uppercase tracking-[0.22em] text-ink hover-line">
+      <p className="font-serif italic text-xl text-foreground/60 mt-6 max-w-xl">
+        {copy.notfound.body}
+      </p>
+      <div className="mt-10">
+        <Link
+          href="/"
+          className="font-serif italic text-lg text-gold-dark hover:text-gold transition-colors"
+        >
           ← {copy.notfound.home}
         </Link>
       </div>

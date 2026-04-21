@@ -1,5 +1,42 @@
 # Changelog
 
+## 2026-04-21 — Restore original cream/gold editorial design
+
+The 2026-04-20 scaffold generated josefine from `lacop-site-template`
+(lea-emrich-derived), which replaced the real custom design Josi's
+site had in the monorepo. Restored from monorepo commit `5e9af2d`
+(last state before the split):
+
+- **Palette**: cream (`#FDFBF4` background, `#F5F0E1` cream,
+  `#E8DFC4` cream-dark), gold (`#C9A84C`, `#E8D8A0`, `#8B7230`),
+  foreground brown `#2A2418`. No more pale blue.
+- **Fonts**: EB Garamond serif, Manrope sans, JetBrains Mono.
+- **Navigation**: vertical sidebar "spine" on desktop — 88px wide on
+  the left edge with rotated `JOSEFINE · GULDEN` wordmark, JG
+  monogram, and a numbered (01/02/03/04) floating route list
+  top-right with a springy active underline. Mobile gets a slim top
+  bar with a three-line → X animated hamburger and a stacked
+  large-serif drawer. No EN/DE toggle (LACOP house rule DE-only).
+- **Hero**: huge clamp serif name `clamp(3rem,14vw,9rem)` with
+  italic gold-dark last-name accent, role eyebrow
+  "model — Stuttgart", dark-foreground CTA + italic secondary link,
+  wide hero image (4/5 → 16/10 → 21/9 across breakpoints).
+- **About**: "über josefine" lowercase kicker title pattern,
+  "Meine Geschichte" section with italic display bio
+  ("Text folgt." until Josi delivers), Stuttgart location caption,
+  stats in 4-col gold-underlined grid.
+- **Contact**: "lass uns *reden*" title pattern, booking email
+  hardcoded to `Cooperation-Josi.Gulden@outlook.com`, info + form
+  split. Location echoes "Stuttgart, Deutschland".
+- **Portfolio**: "das *portfolio*" title pattern, aspect-ratio-
+  native image grid, mono index captions.
+- **Impressum / 404**: lowercase italic-gold display headings.
+
+LACOP resolver contract (`mock.ts`, `lib/types.ts`, `lib/lacop.ts`)
+kept — real data already lives there and flows into the restored
+components unchanged. Bilingual `LanguageContext` from the original
+monorepo was NOT carried over (LACOP house rule is DE-only).
+
 ## 2026-04-20 — Split from lacop-site-demos monorepo
 
 Josefine Gulden portfolio moved into its own repo (matching

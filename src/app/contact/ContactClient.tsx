@@ -1,25 +1,25 @@
 "use client";
 
 import { useState } from "react";
+import { motion, useReducedMotion } from "framer-motion";
 import type { Profile } from "@/lib/types";
-import { getSocialLabel, safeUrl } from "@/lib/utils";
 import { copy } from "@/data/copy";
+import { getSocialLabel, safeUrl } from "@/lib/utils";
 import ScrollReveal from "@/components/ScrollReveal";
 
 type Props = { profile: Profile };
 
-function bookingEmailFor(profile: Profile): string {
-  if (profile.website_domain) {
-    return `hello@${profile.website_domain.replace(/^https?:\/\//, "")}`;
-  }
-  return `hello@${profile.slug}.lacop.site`;
-}
+// Josi-supplied booking email (2026-04-21). Overrides the default
+// `hello@<domain>` derivation until the LACOP `public_profiles` shape
+// adds a `contact_email` column.
+const BOOKING_EMAIL = "Cooperation-Josi.Gulden@outlook.com";
 
 export default function ContactClient({ profile }: Props) {
+  const reduced = useReducedMotion();
   const [sent, setSent] = useState(false);
   const [submitting, setSubmitting] = useState(false);
 
-  const email = bookingEmailFor(profile);
+  const email = BOOKING_EMAIL;
   const socials = Object.entries(profile.social_links ?? {}).filter(([, v]) => Boolean(v));
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -41,66 +41,84 @@ export default function ContactClient({ profile }: Props) {
 
   return (
     <>
-      <section className="px-5 md:px-10 lg:px-16 pt-10 md:pt-16 pb-8 md:pb-12">
-        <p className="mono text-[0.72rem] uppercase tracking-[0.22em] text-accent mb-3">
-          {copy.contact.eyebrow}
-        </p>
-        <h1 className="font-medium tracking-[-0.02em] text-[clamp(2.8rem,10vw,6.4rem)] leading-[0.95] text-ink">
+      {/* Header */}
+      <section className="px-6 lg:px-16 pt-10 lg:pt-24 pb-10">
+        <p className="font-mono text-[10px] uppercase tracking-[0.3em] text-gold mb-4">
           {copy.contact.title}
+        </p>
+        <h1 className="font-serif text-[clamp(3rem,14vw,9rem)] leading-[0.95] tracking-tight">
+          {copy.contact.lets_talk_lead}
+          <span className="serif-italic text-gold-dark">{copy.contact.lets_talk_tail}</span>
         </h1>
-        <p className="text-lg md:text-xl text-ink-soft mt-6 max-w-xl">
+        <p className="font-serif italic text-lg sm:text-xl text-foreground/60 mt-6 max-w-xl">
           {copy.contact.subtitle}
         </p>
       </section>
 
-      <section className="px-5 md:px-10 lg:px-16 py-12 md:py-20 border-t border-rule">
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-16">
-          <ScrollReveal className="md:col-span-5 space-y-10">
-            <div>
-              <p className="mono text-[0.68rem] uppercase tracking-[0.2em] text-muted mb-2">
-                {copy.contact.form.email}
-              </p>
-              <a
-                href={`mailto:${email}`}
-                className="hover-line text-xl md:text-2xl text-ink font-medium break-all"
-              >
-                {email}
-              </a>
-            </div>
-
-            {socials.length > 0 && (
+      <section className="px-6 lg:px-16 py-12 lg:py-20 border-t border-gold-light/40">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16">
+          {/* INFO */}
+          <ScrollReveal className="lg:col-span-5">
+            <div className="space-y-8">
               <div>
-                <p className="mono text-[0.68rem] uppercase tracking-[0.2em] text-muted mb-3">
-                  {copy.contact.follow_heading}
+                <p className="font-mono text-[10px] uppercase tracking-[0.25em] text-foreground/40 mb-2">
+                  {copy.contact.form.email}
                 </p>
-                <ul className="flex flex-wrap gap-x-5 gap-y-2">
-                  {socials.map(([platform, url]) => {
-                    const safe = safeUrl(url);
-                    if (!safe) return null;
-                    return (
-                      <li key={platform}>
+                <a
+                  href={`mailto:${email}`}
+                  className="font-serif italic text-xl sm:text-2xl text-foreground hover:text-gold-dark transition-colors break-all"
+                >
+                  {email}
+                </a>
+              </div>
+
+              <div>
+                <p className="font-mono text-[10px] uppercase tracking-[0.25em] text-foreground/40 mb-2">
+                  {copy.contact.location_heading}
+                </p>
+                <p className="font-serif text-xl sm:text-2xl text-foreground">
+                  {copy.about.location}
+                </p>
+              </div>
+
+              {socials.length > 0 && (
+                <div>
+                  <p className="font-mono text-[10px] uppercase tracking-[0.25em] text-foreground/40 mb-3">
+                    {copy.contact.follow_heading}
+                  </p>
+                  <div className="flex flex-wrap gap-x-5 gap-y-2">
+                    {socials.map(([platform, url]) => {
+                      const safe = safeUrl(url);
+                      if (!safe) return null;
+                      return (
                         <a
+                          key={platform}
                           href={safe}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="hover-line text-lg text-accent font-medium"
+                          className="font-serif italic text-lg text-gold-dark hover:text-gold transition-colors"
                         >
                           {getSocialLabel(platform)}
                         </a>
-                      </li>
-                    );
-                  })}
-                </ul>
-              </div>
-            )}
+                      );
+                    })}
+                  </div>
+                </div>
+              )}
+            </div>
           </ScrollReveal>
 
-          <ScrollReveal className="md:col-span-7" delay={0.15}>
+          {/* FORM */}
+          <ScrollReveal className="lg:col-span-7" delay={0.15}>
             {sent ? (
-              <div className="py-12 text-center">
-                <p className="text-6xl text-accent mb-6">✓</p>
-                <p className="text-xl md:text-2xl text-ink">{copy.contact.form.sent}</p>
-              </div>
+              <motion.div
+                initial={reduced ? false : { opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="text-center py-16"
+              >
+                <p className="font-serif text-6xl text-gold mb-6">✓</p>
+                <p className="font-serif italic text-xl sm:text-2xl text-foreground">{copy.contact.form.sent}</p>
+              </motion.div>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-8">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
@@ -112,7 +130,7 @@ export default function ContactClient({ profile }: Props) {
                 <button
                   type="submit"
                   disabled={submitting}
-                  className="inline-flex items-center gap-2 text-[0.92rem] font-medium text-background bg-ink px-6 py-3 hover:bg-accent transition-colors rounded-full disabled:opacity-60"
+                  className="inline-flex items-center gap-3 font-mono text-xs uppercase tracking-[0.2em] text-background bg-foreground px-6 py-3 hover:bg-gold-dark transition-colors disabled:opacity-60"
                 >
                   {submitting ? copy.contact.form.sending : copy.contact.form.send}
                 </button>
@@ -140,7 +158,7 @@ function Field({
 }) {
   return (
     <label className="block">
-      <span className="block mono text-[0.68rem] uppercase tracking-[0.2em] text-muted mb-2">
+      <span className="block font-mono text-[10px] uppercase tracking-[0.25em] text-foreground/40 mb-2">
         {label}
       </span>
       {textarea ? (
@@ -148,14 +166,14 @@ function Field({
           name={name}
           required={required}
           rows={5}
-          className="w-full bg-transparent border-0 border-b border-rule focus:border-accent pb-2 outline-none text-ink text-lg transition-colors resize-none"
+          className="w-full bg-transparent border-0 border-b border-foreground/20 focus:border-gold pb-2 outline-none text-foreground font-serif text-lg transition-colors resize-none"
         />
       ) : (
         <input
           name={name}
           type={type}
           required={required}
-          className="w-full bg-transparent border-0 border-b border-rule focus:border-accent pb-2 outline-none text-ink text-lg transition-colors"
+          className="w-full bg-transparent border-0 border-b border-foreground/20 focus:border-gold pb-2 outline-none text-foreground font-serif text-lg transition-colors"
         />
       )}
     </label>
