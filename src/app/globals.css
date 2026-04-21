@@ -104,7 +104,7 @@ body {
   aspect-ratio: 4 / 5;
   background: linear-gradient(180deg, var(--mist) 0%, var(--mist-strong) 100%);
   border: 1px solid var(--rule);
-  border-radius: 8px;
+  border-radius: 4px;
   overflow: hidden;
 }
 .slot::before,

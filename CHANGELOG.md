@@ -1,42 +1,5 @@
 # Changelog
 
-## 2026-04-21 — Home responsive pass + soft-radius refresh
-
-Home was left alone in the previous pass ("Startseite ist ok") but it
-still had the old two-step section padding and no svh caps on the hero
-image — the portrait could overflow the fold on short mobile viewports
-(same bug that hit carina/hanna/lea). Also unified the border-radius
-treatment across cards and images: `rounded-sm` (2px) read sharp
-against the pale-blue + Space Grotesk softness — bumped images and
-category cards to `rounded-lg` (8px), hero portrait to `rounded-xl`
-(12px, signature). Pill buttons stay `rounded-full` — that's the
-site's voice.
-
-**Home hero:** wrapped in `flex flex-col justify-center
-min-h-[calc(100svh-3.5rem)] md:min-h-[calc(100svh-4rem)]`. Portrait
-now has `max-h-[38svh] md:max-h-[48svh]` and a responsive max-w
-progression `max-w-[220px] sm:max-w-[260px] md:max-w-[300px]`. H1
-clamp pulled to `clamp(1.9rem,5.5vw,3.4rem)`. CTA/secondary font-size
-bumped to `0.95rem` for consistency with the rest of the site.
-
-**Home sections:** `py-14 md:py-20` → `py-12 md:py-16 lg:py-20`
-(adds the tablet step so `py-20` is reserved for desktop).
-
-**About:** portrait `rounded-sm` → `rounded-lg`; section padding
-gained tablet step `py-10 md:py-14 lg:py-16` / `py-12 md:py-14
-lg:py-16`; stats grid `gap-x-6 md:gap-x-8` so 4-col on tablet has
-breathing room.
-
-**Portfolio:** gallery tiles `rounded-sm` → `rounded-lg`; bottom
-section padding `pb-20 md:pb-28` → `pb-16 md:pb-24 lg:pb-28`.
-
-**Globals:** `.slot` helper `border-radius: 4px` → `8px` so empty-
-state slots match the new `rounded-lg` image treatment.
-
-Space Grotesk + pale-blue + 8px corners reads as "soft editorial"
-instead of "techy brutalist" — feels right for a Stuttgart
-fashion/lifestyle model preview.
-
 ## 2026-04-21 — Josi's real content pass + responsive/typography fixes
 
 Update pass before handing a preview back to Josi.

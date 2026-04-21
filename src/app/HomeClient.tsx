@@ -26,14 +26,16 @@ export default function HomeClient({ profile, categories, media }: Props) {
 
   return (
     <>
-      {/* HERO — centered vertical stack, sized to fit the fold on every
-          screen (svh caps, min-h=viewport-minus-nav, flex-centered). */}
-      <section className="relative px-5 md:px-10 lg:px-16 pt-6 md:pt-10 pb-10 md:pb-14 flex flex-col justify-center min-h-[calc(100svh-3.5rem)] md:min-h-[calc(100svh-4rem)]">
-        <div className="mx-auto max-w-xl text-center w-full">
+      {/* HERO — centered vertical stack, compact. Add a site-unique signature
+          interaction/ornament here (variable-font axes, cursor-follow frame,
+          horizontal scroll, split viewport, etc.) — every LACOP site must ship
+          one genuinely novel structural choice. See CLAUDE.md. */}
+      <section className="relative px-5 md:px-10 lg:px-16 pt-8 md:pt-12 pb-10 md:pb-14">
+        <div className="mx-auto max-w-xl text-center">
           <p className="mono text-[0.68rem] uppercase tracking-[0.22em] text-accent mb-3">
             {profile.role} · {copy.nav.home}
           </p>
-          <h1 className="font-medium tracking-[-0.02em] text-[clamp(1.9rem,5.5vw,3.4rem)] leading-[1.05] text-ink">
+          <h1 className="font-medium tracking-[-0.02em] text-[clamp(2rem,6vw,3.6rem)] leading-[1.05] text-ink">
             {displayName}
           </h1>
           <p
@@ -49,15 +51,15 @@ export default function HomeClient({ profile, categories, media }: Props) {
               initial={reduced ? false : { opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-              className="relative mt-5 md:mt-7 mx-auto w-full max-w-[220px] sm:max-w-[260px] md:max-w-[300px]"
+              className="relative mt-6 md:mt-8 mx-auto w-full max-w-[300px]"
             >
-              <div className="relative aspect-[4/5] max-h-[38svh] md:max-h-[48svh] overflow-hidden bg-mist-strong rounded-xl border border-rule shadow-[0_16px_40px_-16px_rgba(14,18,32,0.18)]">
+              <div className="relative aspect-[4/5] overflow-hidden bg-mist-strong rounded-sm border border-rule shadow-[0_16px_40px_-16px_rgba(14,18,32,0.18)]">
                 <Image
                   src={heroSrc}
                   alt={displayName}
                   fill
                   priority
-                  sizes="(min-width: 768px) 300px, 60vw"
+                  sizes="(min-width: 768px) 300px, 75vw"
                   className="object-cover"
                 />
               </div>
@@ -67,11 +69,11 @@ export default function HomeClient({ profile, categories, media }: Props) {
           <div className="mt-6 flex flex-wrap items-center justify-center gap-x-5 gap-y-3">
             <Link
               href="/portfolio"
-              className="inline-flex items-center gap-2 text-[0.95rem] font-medium text-background bg-ink px-5 py-2.5 hover:bg-accent transition-colors rounded-full"
+              className="inline-flex items-center gap-2 text-[0.88rem] font-medium text-background bg-ink px-5 py-2.5 hover:bg-accent transition-colors rounded-full"
             >
               {copy.home.categories_cta} →
             </Link>
-            <Link href="/contact" className="hover-line text-[0.95rem] font-medium text-accent">
+            <Link href="/contact" className="hover-line text-[0.9rem] font-medium text-accent">
               {copy.nav.contact}
             </Link>
           </div>
@@ -80,7 +82,7 @@ export default function HomeClient({ profile, categories, media }: Props) {
 
       {/* CATEGORIES */}
       {categories.length > 0 && (
-        <section className="px-5 md:px-10 lg:px-16 py-12 md:py-16 lg:py-20 border-t border-rule">
+        <section className="px-5 md:px-10 lg:px-16 py-14 md:py-20 border-t border-rule">
           <ScrollReveal>
             <div className="flex items-end justify-between gap-6 mb-8 md:mb-12">
               <div>
@@ -91,7 +93,7 @@ export default function HomeClient({ profile, categories, media }: Props) {
                   {copy.portfolio.title}
                 </h2>
               </div>
-              <Link href="/portfolio" className="hover-line hidden sm:inline text-[0.95rem] font-medium text-accent">
+              <Link href="/portfolio" className="hover-line hidden sm:inline text-[0.92rem] font-medium text-accent">
                 {copy.home.categories_cta} →
               </Link>
             </div>
@@ -105,7 +107,7 @@ export default function HomeClient({ profile, categories, media }: Props) {
               return (
                 <li key={cat.id}>
                   <Link href={`/portfolio?category=${cat.slug}`} className="group block">
-                    <div className="relative aspect-[4/5] overflow-hidden bg-mist-strong rounded-lg border border-rule">
+                    <div className="relative aspect-[4/5] overflow-hidden bg-mist-strong rounded-sm border border-rule">
                       {cover ? (
                         <Image
                           src={cover}
@@ -137,7 +139,7 @@ export default function HomeClient({ profile, categories, media }: Props) {
       )}
 
       {/* STATS + BIO teaser */}
-      <section className="px-5 md:px-10 lg:px-16 py-12 md:py-16 lg:py-20 border-t border-rule bg-mist/40">
+      <section className="px-5 md:px-10 lg:px-16 py-14 md:py-20 border-t border-rule bg-mist/40">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-10">
           <ScrollReveal className="md:col-span-5">
             <p className="mono text-[0.72rem] uppercase tracking-[0.22em] text-accent mb-4">
